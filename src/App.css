@@ -1,0 +1,80 @@
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar {
+  flex: 0 0 200px;
+  background-color: #666;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chatbot {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.chatbot-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chatbot-messages {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.chatbot-message {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.chatbot-message-sender {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: bold;
+}
+
+.chatbot-form {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  gap: 10px;
+  margin: auto;
+
+  & > textarea {
+    flex: 1;
+    resize: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+  }
+}
