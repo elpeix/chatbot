@@ -2,7 +2,7 @@ import React from 'react'
 import Input from './Input'
 import ndjsonStream from 'can-ndjson-stream'
 import { useStore } from '../lib/store'
-import Markdown from 'react-markdown'
+import Markdown from './Markdown'
 
 export default function ChatBot() {
   const endRef = React.useRef()
@@ -41,6 +41,7 @@ export default function ChatBot() {
       result += value.response
       addPartialMessage(inlineMessage + value.response)
     }
+    console.log(result)
     addBotMessage(result)
     setThinking(false)
     clearInlineMessage()
@@ -56,6 +57,11 @@ export default function ChatBot() {
     }
   }
 
+  const actors = {
+    user: 'You',
+    bot: 'Bot',
+  }
+
   return (
     <div className='content'>
       <div className='chatbot'>
@@ -63,36 +69,39 @@ export default function ChatBot() {
           <h1 className='chatbot-title'>ChatBot</h1>
         </div>
         <div className='chatbot-body'>
-          <div className='chatbot-messages'>
-            {messages.length > 0 &&
-              messages.map((message, index) => {
-                return (
-                  <div className='chatbot-message' key={index}>
-                    <div className='chatbot-message-sender'>
-                      {message.sender}
+          <div>
+            <div className='chatbot-spacer' />
+            <div className='chatbot-messages'>
+              {messages.length > 0 &&
+                messages.map((message, index) => {
+                  return (
+                    <div className='chatbot-message' key={index}>
+                      <div className='chatbot-message-sender'>
+                        {actors[message.sender]}
+                      </div>
+                      <div className='chatbot-message-text'>
+                        <Markdown>{message.message}</Markdown>
+                      </div>
                     </div>
-                    <div className='chatbot-message-text'>
-                      <Markdown>{message.message}</Markdown>
-                    </div>
+                  )
+                })}
+              {messages.length === 0 && (
+                <div className='chatbot-message'>
+                  <div className='chatbot-message-text'>
+                    Hello, how can I help you?
                   </div>
-                )
-              })}
-            {messages.length === 0 && (
-              <div className='chatbot-message'>
-                <div className='chatbot-message-text'>
-                  Hello, how can I help you?
                 </div>
-              </div>
-            )}
-            {inlineMessage && (
-              <div className='chatbot-message'>
-                <div className='chatbot-message-sender'>bot</div>
-                <div className='chatbot-message-inline'>
-                  <Markdown>{inlineMessage}</Markdown>
+              )}
+              {inlineMessage && (
+                <div className='chatbot-message'>
+                  <div className='chatbot-message-sender'>{actors['bot']}</div>
+                  <div className='chatbot-message-inline'>
+                    <Markdown>{inlineMessage}</Markdown>
+                  </div>
                 </div>
-              </div>
-            )}
-            <div ref={endRef} />
+              )}
+              <div ref={endRef} />
+            </div>
           </div>
         </div>
 

@@ -36,9 +36,12 @@ export default function Input({ send = () => {}, thinking = false }) {
         value={input}
         disabled={thinking}
         onChange={(event) => setInput(event.target.value)}
+        autoCorrect='off'
+        spellCheck='false'
       />
       <button onClick={handleSubmit} disabled={thinking}>
-        Send
+        {thinking && <div className='spinner' />}
+        {!thinking && <span>Send</span>}
       </button>
     </form>
   )
